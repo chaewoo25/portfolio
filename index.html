@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나를 소개하는 웹페이지</title>
+  
+  <!-- Google Fonts (Noto Sans KR / Roboto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 아이콘 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- 외부 CSS 연결 -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- JavaScript 연결 (defer) -->
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <!-- 헤더 & 네비게이션 -->
+  <header id="header">
+    <div class="header-container">
+      <a href="#" class="logo">MyPortfolio</a>
+      
+      <!-- 데스크톱 네비게이션 메뉴 -->
+      <nav class="nav-menu" id="nav-menu">
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- 우측 컨트롤 영역 (다크모드 토글 & 모바일 햄버거 버튼) -->
+      <div class="header-controls">
+        <button id="theme-toggle" class="icon-btn" aria-label="다크 모드 토글">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button id="menu-toggle" class="icon-btn hamburger-btn" aria-label="메뉴 열기">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 콘텐츠 영역 -->
+  <main>
+
+    <!-- 1. Hero 섹션 (대문) -->
+    <section id="hero" class="hero-section">
+      <div class="hero-content">
+        <h1>Hello,<br>I'm <span class="highlight">박채우</span></h1>
+        <p class="hero-subtitle">열정적인 프론트엔드 개발자 지망생입니다.</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. About 섹션 (자기소개) -->
+    <section id="about" class="section">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-container">
+        <div class="about-image">
+          <!-- img 태그에는 반드시 의미 있는 alt 속성을 추가합니다 -->
+          <img src="assets/profile.jpg" alt="홍길동의 프로필 사진">
+        </div>
+        <div class="about-text">
+          <p>안녕하세요! 문제를 해결하고 더 나은 웹 경험을 만드는 것에 즐거움을 느끼는 개발자입니다.</p>
+          <p>HTML, CSS, JavaScript를 기반으로 탄탄한 기본기를 쌓고 있으며, 사용자와 원활히 소통하는 인터랙티브 웹페이지 구축을 목표로 하고 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Skills 섹션 (기술 스택) -->
+    <section id="skills" class="section">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <i class="fa-brands fa-html5 skill-icon"></i>
+          <h3>HTML5</h3>
+          <p>시맨틱 마크업 및 웹 접근성 고려 구조화</p>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-css3-alt skill-icon"></i>
+          <h3>CSS3</h3>
+          <p>Flexbox / Grid 활용 레이아웃 및 반응형 디자인</p>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-js skill-icon"></i>
+          <h3>JavaScript</h3>
+          <p>순수 JS 활용 DOM 조작 및 비동기 API 연동</p>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-github skill-icon"></i>
+          <h3>Git & GitHub</h3>
+          <p>버전 관리 및 GitHub Pages 배포 경험</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Projects 섹션 (GitHub API 연동 영역) -->
+    <section id="projects" class="section">
+      <h2 class="section-title">Projects</h2>
+      
+      <!-- API 로딩 중 스피너 표시 영역 -->
+      <div id="loading-spinner" class="spinner-container">
+        <div class="spinner"></div>
+        <p>GitHub 프로젝트를 불러오는 중입니다...</p>
+      </div>
+
+      <!-- 에러 또는 안내 메시지 출력 영역 -->
+      <div id="projects-message" class="message-container hidden"></div>
+
+      <!-- GitHub API 데이터를 통해 동적으로 생성될 카드 목록 컨테이너 -->
+      <div id="projects-container" class="projects-grid"></div>
+    </section>
+
+    <!-- 5. Contact 섹션 (연락처 & 폼) -->
+    <section id="contact" class="section">
+      <h2 class="section-title">Contact</h2>
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="form-group">
+          <label for="name">이름</label>
+          <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
+          <span class="error-message" id="name-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">이메일</label>
+          <input type="email" id="email" name="email" placeholder="example@email.com" required>
+          <span class="error-message" id="email-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="message">메시지</label>
+          <textarea id="message" name="message" rows="5" placeholder="메시지를 입력하세요" required></textarea>
+          <span class="error-message" id="message-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">보내기</button>
+        <div id="form-result" class="form-result-message"></div>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- 푸터 -->
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2026 박채우. All rights reserved.</p>
+      <div class="social-links">
+        <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 맨 위로 가기 (Top) 버튼 -->
+  <button id="top-btn" class="top-btn hidden" aria-label="맨 위로 이동">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+</body>
+</html>
